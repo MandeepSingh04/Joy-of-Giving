@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block title %}{{post.title}}{% endblock title %}
+{% block body %}
+<br>
+<h1 class="text-center">{{post.Title}}</h1><br>
+<img src="{{ post.Image.url }}" class="rounded mx-auto d-block" height="350" alt="...">
+<div class="row">
+    <div class="col-md-6 offset-md-3 my-5">
+        <p style="font-size:18px">{{post.Description| linebreaks}}</p><br>
+        <p style="font-size:18px">Amount Required - Rs. {{post.Amount}}</p>
+        <button type="button" class="btn btn-primary">Donate</button>
+    </div>
+</div>
+{% endblock body %}

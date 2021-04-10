@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block title %}Signup{% endblock title %}
+
+{% block body %}
+<div class="container p-3">
+<div class="col-md-6 offset-md-3 p-5" style="background-color: #e8e8e8">
+    <form action="/signupinfo" method="post">
+	{% csrf_token %}
+		<h2 class="text-center">Register</h2>
+		<p class="hint-text text-center">Create your account. It's free and only takes a minute.</p>
+		<div class="form-group my-3">
+			<label for="username">Username</label>
+        	<input type="text" class="form-control" name="username" placeholder="Username" required="required">
+        </div>
+        <div class="form-group my-3">
+			<div class="row">
+				<div class="col"><label for="username">First Name</label><input type="text" class="form-control" name="fname" placeholder="First Name" required="required"></div>
+				<div class="col"><label for="username">Last Name</label><input type="text" class="form-control" name="lname" placeholder="Last Name" required="required"></div>
+			</div>        	
+        </div>
+        <div class="form-group my-3">
+			<label for="Email">Email</label>
+        	<input type="email" class="form-control" name="email" placeholder="Email" required="required">
+        </div>
+		<div class="form-group my-3">
+			<label for="password">Password</label>
+            <input type="password" class="form-control" name="password" placeholder="Password" required="required">
+        </div>
+		<div class="form-group my-3">
+			<label for="confirm_password">Confirm Password</label>
+            <input type="password" class="form-control" name="confirm_password" placeholder="Confirm Password" required="required">
+        </div>        
+        <div class="form-group my-3">
+			<label class="form-check-label"><input type="checkbox" required="required"> I accept the <a href="#">Terms of Use</a> &amp; <a href="#">Privacy Policy</a></label>
+		</div>
+		<div class="form-group my-3">
+            <button type="submit" class="btn btn-success btn-lg btn-block">Register Now</button>
+        </div>
+    </form>
+	<div class="text-center">Already have an account? <a href="/login">Sign in</a></div>
+</div>
+</div>
+
+{% endblock body %}

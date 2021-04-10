@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block title %}Post{% endblock title %}
+{% block contactactive %}active{% endblock contactactive %}
+{% block body %}
+<h1 class="text-center">Create a post</h1>
+
+<div class="container">  
+    <div class="col-md-6 offset-md-3">  
+        <form method = "post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-primary">Upload</button>
+        </form>
+    </div>
+</div>
+{% endblock body %}
