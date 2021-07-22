@@ -24,6 +24,7 @@ admin.site.index_title = "Welcome to Joy of Giving Portal"
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('accounts/', include('allauth.urls')),
     path('', include('home.urls'))
 ]
 

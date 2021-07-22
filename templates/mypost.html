@@ -3,13 +3,48 @@
 {% block title %}{{post.title}}{% endblock title %}
 {% block body %}
 <br>
-<h1 class="text-center">{{post.Title}}</h1><br>
-<img src="{{ post.Image.url }}" class="rounded mx-auto d-block" height="350" alt="...">
+<div class="row p-3">
+    <h1 class="text-center">{{post.Title}}</h1>
+</div>
 <div class="row">
-    <div class="col-md-6 offset-md-3 my-5">
+<div class="col-md-6 offset-md-1">
+    <img src="{{ post.Image.url }}" class="rounded mx-auto d-block" height="350" alt="...">
+    <p >Posted by : 
+    {% for user in allusers %}
+    {%if user == post.user%}
+    <a href="{%url 'userprofile' pk=user.pk %}">{{post.user}}</a>
+    {%endif%}
+    {% endfor %}
+     <br>{{post.timestamp}}</p><br>
         <p style="font-size:18px">{{post.Description| linebreaks}}</p><br>
-        <p style="font-size:18px">Amount Required - Rs. {{post.Amount}}</p>
-        <button type="button" class="btn btn-primary">Donate</button>
+        <p style="font-size:18px">Amount Required - &#8377 {{post.Amount}}</p>
+</div>
+<div class="col">
+    <style>
+    .col {
+        position: -webkit-sticky; /* Safari */
+        position: sticky;
+        top: 0;
+    }
+    </style>
+    <div class="col">
+    <div class="col p-3">
+        <div class="card h-100 p-3">
+            <p style="font-size:24px"><b>&#8377 0</b></p>
+            <p style="font-size:18px">raised out of <b> &#8377 {{post.Amount}}</b></p>
+            <hr>
+            <div class="row">
+                <div>
+                <button type="button" class="btn btn-primary mx-2">Donate</button>
+                <button type="button" class="btn btn-success mx-2">Share</button>
+                {%if request.user == post.user%}
+                <a class="btn btn-secondary mx-2" href="{%url 'edit_post' pk=post.pk %}" role="button">Edit post</a>
+                <a class="btn btn-danger mx-2" href="{%url 'deletepost' id=post.pk %}" role="button">Delete post</a>
+                {%endif%}
+                </div>            
+            </div>
+        </div>
+    </div>
     </div>
 </div>
 {% endblock body %}

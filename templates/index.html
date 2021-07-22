@@ -3,7 +3,6 @@
 {% block title %}Home{% endblock title %}
 {% block homeactive %}active{% endblock homeactive %}
 {% block css %}
-<style>
 .col{
 transition: 0.2s ease;
 }
@@ -14,7 +13,6 @@ transition: 0.2s ease;
 transform: scale(1.05);
 transition: 0.2s ease;
 }
-</style>
 {% endblock css %}
 {% block body %}
 <div class="container-fluid px-0">
@@ -69,17 +67,17 @@ transition: 0.2s ease;
 {% comment %} Album {% endcomment %}
 <div class="container">
   <div class="row row-cols-1 row-cols-md-3 g-4 p-5 mx-5">
-    {% for post in allposts %}
+    {% for post in allposts reversed %}
     <div class="col" onclick="location.href='{%url 'mypost' pk=post.pk %}'" style="cursor: pointer;">
       <div class="card h-100">
         <img src="{{ post.Image.url }}" width="250" height="250" class="card-img-top" alt="..." />
         <div class="card-body">
           <h5 class="card-title">{{post.Title}}</h5>
           <p>{{post.Description| truncatechars:100}} <a href="{%url 'mypost' pk=post.pk %}">read more</a></p>
-          <p>Amount Required - Rs. {{post.Amount}}</p>
+          <p>Amount Required - &#8377 {{post.Amount}}</p>
         </div>
         <div class="card-footer">
-          <small class="text-muted">Rs. {{post.Amount}} left</small>
+          <small class="text-muted">&#8377 {{post.Amount}} left</small>
         </div>
       </div>
     </div>

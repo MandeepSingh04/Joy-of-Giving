@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block title %}{{request.user}}{% endblock title %}
+
+{% block body %}
+<div class="container">    
+    <div class="row p-5">
+        <h2 class="text-center">Your Profile</h2>
+    </div>
+    <div class="row px-5">
+        <div class="col-sm-3">
+            <img alt="User Pic" src="/media/default.png" id="profile-image1" class="rounded-circle img-thumbnail" height="200"> 
+        </div>
+        <div class="col float-left" >
+            <h2>{{request.user.get_full_name}}</h2>
+            <p>an   <b> Employee</b></p>
+            <hr>
+            <ul class="container details" >
+                <li><p><span class="glyphicon glyphicon-user one" style="width:50px;"></span>{{request.user}}</p></li>
+                <li><p><span class="glyphicon glyphicon-envelope one" style="width:50px;"></span>{{request.user.email}}</p></li>
+            </ul>
+            <hr>
+            <p>Date Of Joining: {{request.user.date_joined}}</p>
+        </div>        
+    </div>
+</div>
+
+<div class="container">
+  <div class="row row-cols-1 row-cols-md-3 g-4 p-5 mx-5">
+    {% for post in allposts reversed %}
+    {%if request.user == post.user%}
+    <div class="col" onclick="location.href='{%url 'mypost' pk=post.pk %}'" style="cursor: pointer;">
+      <div class="card h-100">
+        <img src="{{ post.Image.url }}" width="250" height="250" class="card-img-top" alt="..." />
+        <div class="card-body">
+          <h5 class="card-title">{{post.Title}}</h5>
+          <p>{{post.Description| truncatechars:100}} <a href="{%url 'mypost' pk=post.pk %}">read more</a></p>
+          <p>Amount Required - Rs. {{post.Amount}}</p>
+        </div>
+        <div class="card-footer">
+          <small class="text-muted">Rs. {{post.Amount}} left</small>
+        </div>
+      </div>
+    </div>
+    {%endif%}
+    {% endfor %}
+  </div>
+</div>
+{% endblock body %}

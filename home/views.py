@@ -2,7 +2,7 @@ from django.shortcuts import render, HttpResponse, redirect
 from datetime import datetime
 from home.models import Post
 from django.contrib import messages
-from django.contrib.auth import authenticate,login,logout
+from django.contrib.auth import authenticate,login,logout,get_user_model
 from django.contrib.auth.models import User
 from django.shortcuts import render, get_object_or_404
 from .forms import *
@@ -16,24 +16,66 @@ def index(request):
     context = {'allposts':allposts}
     return render(request, 'index.html',context)
 
+def profile(request):
+    allposts = Post.objects.all()
+    context = {'allposts':allposts}
+    return render(request, 'profile.html',context)
+
+def userprofile(request,pk):
+    allposts = Post.objects.all()
+    User = get_user_model()
+    postuser = get_object_or_404(User, pk=pk)
+    if request.user==postuser:
+        return redirect('profile')
+    context = {'allposts':allposts,'postuser':postuser}
+    return render(request, 'userprofile.html',context)
+
 def about(request):
     return render(request, 'about.html')
 
 def mypost(request, pk):
     post = get_object_or_404(Post, pk=pk)
-    return render(request, 'mypost.html', {'post': post})
+    User = get_user_model()
+    allusers = User.objects.all()
+    context = {'allusers':allusers,'post': post}
+    return render(request, 'mypost.html', context)
     
 def createpost(request):
-    if request.method == 'POST':
-        form = PostForm(request.POST, request.FILES)
-  
+    if request.user.is_authenticated:
+        if request.method == 'POST':
+            form = PostForm(request.POST, request.FILES)
+    
+            if form.is_valid():
+                profile = form.save(commit=False)
+                profile.user = request.user
+                profile.save()
+                messages.success(request, "Your post has been submitted successfully")
+                next = request.GET.get('next', reverse('home'))
+                return redirect(next)
+        else:
+            form = PostForm()
+        return render(request, 'post.html', {'form' : form})
+    else:
+        return redirect('login')
+
+def edit_post(request, pk):
+    post = Post.objects.get(pk=pk)
+    if request.user != post.user:
+        next = request.GET.get('next', reverse('mypost',kwargs={'pk': pk}))
+        return redirect(next)
+    elif request.method == 'POST':
+        form = PostForm(request.POST, instance=post)
+
         if form.is_valid():
             form.save()
-            messages.success(request, "Your post has been submitted successfully")
-            return render(request, 'post.html', {'form' : form})
+            messages.success(request, "Your post has been edited")
+            next = request.GET.get('next', reverse('mypost', kwargs={'pk': pk}))
+            return redirect(next)
+        else:
+            form = PostForm(instance=post)
     else:
-        form = PostForm()
-    return render(request, 'post.html', {'form' : form})
+        form = PostForm(instance=post)
+    return render(request, 'editpost.html', {'form':form, 'post':post})
 
 def userlogin(request):
     return render(request, 'login.html')
@@ -92,4 +134,10 @@ def handlelogin(request):
 def handlelogout(request):
     logout(request)
     messages.success(request, "You have been successfully Logged out!")
+    return redirect('home')
+
+def deletepost(request,id):
+    post_to_delete=Post.objects.get(id=id)
+    post_to_delete.delete()
+    messages.success(request, "Your post has been deleted successfully!")
     return redirect('home')

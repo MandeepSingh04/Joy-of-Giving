@@ -3,6 +3,7 @@
 {% block title %}Login{% endblock title %}
 
 {% block body %}
+{% load socialaccount %}
 <div class="container p-5">
 	<div class="col-md-6 offset-md-3 p-5" style="background-color: #e8e8e8">
 		<form action="/logininfo" method="post">
@@ -22,6 +23,7 @@
 			</div>			
 			<div class="form-group my-3">
 				<button type="submit" class="btn btn-success">Log in</button>
+				<a class="btn btn-primary" href="{% provider_login_url 'google' %}" role="button">Login With Google</a>
 			</div>
 		</form>
 				<a href="#" class="float-right">Forgot Password?</a>

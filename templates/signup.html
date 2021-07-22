@@ -3,6 +3,7 @@
 {% block title %}Signup{% endblock title %}
 
 {% block body %}
+{% load socialaccount %}
 <div class="container p-3">
 <div class="col-md-6 offset-md-3 p-5" style="background-color: #e8e8e8">
     <form action="/signupinfo" method="post">
@@ -35,7 +36,8 @@
 			<label class="form-check-label"><input type="checkbox" required="required"> I accept the <a href="#">Terms of Use</a> &amp; <a href="#">Privacy Policy</a></label>
 		</div>
 		<div class="form-group my-3">
-            <button type="submit" class="btn btn-success btn-lg btn-block">Register Now</button>
+            <button type="submit" class="btn btn-success">Register Now</button>
+			<a class="btn btn-primary" href="{% provider_login_url 'google' %}" role="button">Continue With Google</a>
         </div>
     </form>
 	<div class="text-center">Already have an account? <a href="/login">Sign in</a></div>
