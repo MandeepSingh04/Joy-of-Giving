@@ -24,16 +24,7 @@ To run locally, do the usual:
    ```
    python -m pip install -r requirements.txt
    ```
-4. Migrate the tables::
-   ```
-   python manage.py makemigrations
-   python manage.py migrate
-   ```
-5. Create a superuser::
-   ```
-   python manage.py createsuperuser
-   ```
-6. Run
+4. Run
    ```
    python manage.py runserver
    ```
