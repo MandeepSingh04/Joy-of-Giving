@@ -29,18 +29,12 @@ To run locally, do the usual:
    python manage.py runserver
    ```
 ## Software requirements
-- Python(3)
-- Django
-- SQLite
+Python(3) | Django 
+--------- | ------ 
 
 ## Technology Used
-#### Frontend
-- HTML
-- CSS
-- Bootstrap
-#### Backend
-- Django
-- SQLite database
+- Frontend : HTML, CSS, Bootstrap
+- Backend : Django, SQLite database
 
 ## How to use
 In order to post, you must login in the website. For this, you have to create an account. To create an account, Click on “Signup” button (top-right).
