@@ -10,6 +10,33 @@ Getting funds/donations has a difficult task for the people in need.
 Many a time, people require urgent donation and for that they need to reach out as many people as possible in a very less time in search of donors. 
 This donation website will bridge the gap between these needy people and donors. 
 
+## Installation
+To run locally, do the usual:
+1. Clone the repository::
+   ```
+   git clone https://github.com/MandeepSingh04/Joy-of-Giving
+   ```
+2. Move inside the folder
+   ```
+   cd Joy-of-Giving
+   ```
+3. Install the requirements::
+   ```
+   python -m pip install -r requirements.txt
+   ```
+4. Migrate the tables::
+   ```
+   python manage.py makemigrations
+   python manage.py migrate
+   ```
+5. Create a superuser::
+   ```
+   python manage.py createsuperuser
+   ```
+6. Run
+   ```
+   python manage.py runserver
+   ```
 ## Software requirements
 - Python(3)
 - Django
